@@ -1,0 +1,31 @@
+﻿@page "/cart"
+@using ShoppingCart.Models
+@using ShoppingCart.Services
+@inject HttpClient http
+@inject ICartService cart
+
+<h1 class="display-5 fw-bold">Your Cart</h1>
+@if (cart.Cart.Any())
+{
+    <ul class="list-group">
+        @foreach (var product in cart.Cart)
+        {
+            <li class="list-group-item p-2">
+                @product.ProductName - $@product.Price USD
+                <button @onclick="@(()=>cart.DeleteProduct(product))" class="btn btn-danger btn-sm" ><span class="oi oi-delete"></span> Delete</button>
+            </li>
+        }
+    </ul>
+    <div class="p-2">
+        <h3>Total: $@cart.Total</h3>
+    </div>
+}
+else
+{
+    <p><em>You have nothing in your cart.</em></p>
+    <a href="" class="btn btn-primary">Go Shopping</a>
+}
+
+@code{
+
+}
